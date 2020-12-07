@@ -1,3 +1,9 @@
+<?php
+	include "koneksi.php";
+	$kelas = ['SE-02-A', 'SE-02-B', 'SE-02-C'];
+	$sql = "SELECT * FROM data";
+	$data = $conn->query($sql);
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -17,7 +23,7 @@
         <div class="row">
             <div class="col-lg-6 mb-5">
                 <h4>Input Data</h4>
-                <form action="" method="post">
+                <form action="simpan.php" method="post">
                     <div class="form-group">
                         <label for="nama">Nama</label>
                         <input type="text" name="nama" placeholder="Nama" class="form-control" required>
@@ -26,7 +32,9 @@
                         <label for="kelas">Kelas</label>
                         <select name="kelas" class="form-control" required>
                             <option value="">Pilih</option>
-                            
+							<?php foreach($kelas as $kl) : ?>
+							<option value="<?= $kl; ?>"><?= $kl; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -40,29 +48,33 @@
             <div class="col-lg-6">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted">Data Mahasiswa</span>
-                    
+                    <?php
+					$sql = 'SELECT count(id) FROM data';
+					$result = $conn->query($sql);
+					$count = mysqli_fetch_array($result); ?>
+					<button class="btn btn-secondary btn-circle" style="border-radius; 50px;"><?php echo $count[0]; ?>
                 </h4>
 
-       
+				<?php foreach($data as $dt) : ?>
                 <div class="card mb-2">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
-                            
-                                <h4>Nama</h4>
+
+								<h4><?= $dt['nama']; ?></h4>
                             </div>
                             <div class="col-md-6">
-                                <p class="text-right">Kelas</p>
+                                <p class="text-right"><?= $dt['kelas']; ?></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <p>Alamat</p>
+                                <p><?= $dt['alamat']; ?></p>
                             </div>
                         </div>
                     </div>
                 </div>
-               
+				<?php endforeach; ?>
             </div>
         </div>
     </div>
