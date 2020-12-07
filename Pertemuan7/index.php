@@ -1,4 +1,4 @@
-<?php
+<?php // class koneksi
 	include "koneksi.php";
 	$kelas = ['SE-02-A', 'SE-02-B', 'SE-02-C'];
 	$sql = "SELECT * FROM data";
@@ -13,11 +13,11 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-    <title>CRUD PHP</title>
+    <title>CRUD PHP</title> <!-- judul -->
   </head>
   <body>
    
-
+<!-- isi -->
     <div class="container">
         <h1 class="text-center mt-5 mb-5">Form Mahasiswa</h1>
         <div class="row">
