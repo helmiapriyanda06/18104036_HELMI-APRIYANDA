@@ -21,3 +21,6 @@ Membuat database baru
 
 Untuk membuat database baru, aktifkan xampp terlebih dahulu. Kemudian buat database dengan nama warehouse.
 Ubah file .env
+Buka folder project yang dibuat di text editor yang digunakan, lalu pilih file bernama .env Ubah nilai database menjadi seperti
+Composer
+A Dependency Manager for PHP
