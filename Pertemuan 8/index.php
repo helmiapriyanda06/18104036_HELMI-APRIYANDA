@@ -1,23 +1,33 @@
+<?php
+    include "koneksi.php";
+    session_start();
+    $kelas = ['SE-02-A', 'SE-02-B','SE-02-C'];
+    $sql = "SELECT * FROM data";
+    $data = $conn->query($sql);
+?>
 <!doctype html>
 <html lang="en">
   <head>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+    <script src="script.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>CRUD PHP</title>
   </head>
+
   <body>
-   
 
     <div class="container">
         <h1 class="text-center mt-5 mb-5">Form Mahasiswa</h1>
         <div class="row">
             <div class="col-lg-6 mb-5">
                 <h4>Input Data</h4>
-                <form action="" method="post">
+                <?php include "read_message.php" ?>
+                </div> 
+                <form action="simpan.php" method="post">
                     <div class="form-group">
                         <label for="nama">Nama</label>
                         <input type="text" name="nama" placeholder="Nama" class="form-control" required>
@@ -26,12 +36,20 @@
                         <label for="kelas">Kelas</label>
                         <select name="kelas" class="form-control" required>
                             <option value="">Pilih</option>
-                            
+                            <?php foreach($kelas as $kl) : ?>
+                            <option value="<?= $kl; ?>"><?= $kl; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
                         <input type="text" name="alamat" placeholder="Alamat" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="foto">Foto</label>
+                        <br>
+                        <img id="foto" src="#" alt="" />
+                        <input type="file" name="foto" placeholder="Foto" onchange="readURL(this);" class="form-control" required>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-block">Submit</button>
@@ -43,26 +61,28 @@
                     
                 </h4>
 
-       
+                <?php foreach($data as $dt) : ?>
                 <div class="card mb-2">
                     <div class="card-body">
+                    <a class="float-right ml-3 text-danger" href="hapus_data.php?mahasiswa_id=<?php echo $dt['id'] ?>" type="button" class="close">
+                                    <span class="fa fa-trash"></span>
+                                </a>
+                                <a class="float-right ml-3 text-success" href="update_form.php?mahasiswa_id=<?php echo $dt['id'] ?>" type="button" class="close">
+                                    <span class="fa fa-edit"></span>
+                                </a>
                         <div class="row">
+                        <p class="text-left"><img src="<?php echo 'images/' . $dt['foto'] ?>" width="130" height="130" alt=""></p>
                             <div class="col-md-6">
                             
-                                <h4>Nama</h4>
-                            </div>
-                            <div class="col-md-6">
-                                <p class="text-right">Kelas</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p>Alamat</p>
+                                <h4><?= $dt['nama']; ?></h4>
+                                
+                                <p class="text-left"><?= $dt['kelas'] ?></p>
+                                <p class="text-left"><?= $dt['alamat'] ?></p>
                             </div>
                         </div>
                     </div>
                 </div>
-               
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
