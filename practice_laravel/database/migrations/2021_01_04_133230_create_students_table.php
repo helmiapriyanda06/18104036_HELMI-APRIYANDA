@@ -13,6 +13,7 @@ class CreateStudentsTable extends Migration
      */
     public function up()
     {
+        //code dari table student
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->integer('nim');
